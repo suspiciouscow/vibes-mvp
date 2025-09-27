@@ -7,7 +7,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <header className="sticky top-0 z-10 border-b border-white/10 bg-black/60 backdrop-blur">
           <nav className="mx-auto flex max-w-3xl items-center gap-4 p-3">
             <a href="/" className="font-semibold">Vibes</a>
-            <a href="/create" className="ml-auto rounded-lg border border-white/10 px-3 py-1.5 hover:bg-white/5">
+            <a href="/login" className="ml-auto rounded-lg border border-white/10 px-3 py-1.5 hover:bg-white/5">
+              Login
+            </a>
+            <a href="/create" className="rounded-lg border border-white/10 px-3 py-1.5 hover:bg-white/5">
               Create
             </a>
           </nav>

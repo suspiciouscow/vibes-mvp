@@ -1,2 +1,9 @@
-// placeholder; real implementation in Phase 2
-export const browserSupabase = () => null as any;
+"use client";
+import { createBrowserClient } from "@supabase/ssr";
+
+export function browserSupabase() {
+  return createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+}
