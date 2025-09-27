@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const metadata = { title: "Vibes MVP" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -6,13 +8,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-dvh bg-black text-white">
         <header className="sticky top-0 z-10 border-b border-white/10 bg-black/60 backdrop-blur">
           <nav className="mx-auto flex max-w-3xl items-center gap-4 p-3">
-            <a href="/" className="font-semibold">Vibes</a>
-            <a href="/login" className="ml-auto rounded-lg border border-white/10 px-3 py-1.5 hover:bg-white/5">
+            <Link href="/" className="font-semibold">Vibes</Link>
+            <Link href="/login" className="ml-auto rounded-lg border border-white/10 px-3 py-1.5 hover:bg-white/5">
               Login
-            </a>
-            <a href="/create" className="rounded-lg border border-white/10 px-3 py-1.5 hover:bg-white/5">
+            </Link>
+            <Link href="/create" className="rounded-lg border border-white/10 px-3 py-1.5 hover:bg-white/5">
               Create
-            </a>
+            </Link>
           </nav>
         </header>
         <main className="mx-auto max-w-3xl p-4">{children}</main>
