@@ -1,25 +1,17 @@
-"use client";
-import { useState } from "react";
+import { serverSupabase } from "@/lib/supabase/server";
+import CreateClient from "./ui";
 
-export default function CreatePage() {
-  const [prompt, setPrompt] = useState("");
-  const submit = (e: React.FormEvent) => {
-    e.preventDefault();
-    alert(`(Phase 1) You entered: ${prompt}`);
-  };
-  return (
-    <div className="space-y-3">
-      <h1 className="text-xl font-semibold">Create</h1>
-      <form onSubmit={submit} className="space-y-3">
-        <textarea
-          value={prompt}
-          onChange={(e) => setPrompt(e.target.value)}
-          className="w-full rounded-lg border border-white/10 bg-black/40 p-3 outline-none"
-          rows={4}
-          placeholder="Describe the video you want to generate…"
-        />
-        <button className="rounded-lg bg-white px-4 py-2 text-black">Generate (stub)</button>
-      </form>
-    </div>
-  );
+export default async function CreatePage() {
+  const supabase = await serverSupabase();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
+    // server redirect
+    return (
+      <div className="space-y-2">
+        <h1 className="text-xl font-semibold">Sign in required</h1>
+        <a className="underline" href="/login">Go to login</a>
+      </div>
+    );
+  }
+  return <CreateClient />;
 }
