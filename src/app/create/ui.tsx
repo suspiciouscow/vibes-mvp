@@ -11,23 +11,26 @@ export default function CreateClient() {
     e.preventDefault();
     setLoading(true);
 
-    // get user
-    const { data: { user }, error: uerr } = await supabase.auth.getUser();
-    if (uerr || !user) { alert("Sign in required"); setLoading(false); return; }
+    try {
+      const res = await fetch("/api/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt }),
+      });
 
-    // create a queued video (temporary)
-    const { error } = await supabase.from("videos").insert({
-      owner_id: user.id,
-      prompt,
-      provider: "pending",
-      status: "queued"
-    });
-    setLoading(false);
+      const data = await res.json();
+      setLoading(false);
 
-    if (error) alert(error.message);
-    else {
+      if (!res.ok) {
+        alert(data.error || "Generation failed");
+        return;
+      }
+
       setPrompt("");
-      alert("Created draft video (queued). We'll hook generation next.");
+      alert("Video generation started! Check the feed for updates.");
+    } catch (error) {
+      setLoading(false);
+      alert("Failed to start generation");
     }
   };
 
